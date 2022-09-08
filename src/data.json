@@ -1,14 +1,14 @@
 [
-    {
-        "id": 1,
-        "name": "Mohammed",
-        "email": "moh@gmail.com",
-        "password": "123456"
-    },
-    {
-        "id": 2,
-        "name": "Ahmed",
-        "email": "ahm@gmail.com",
-        "password": "785411"
-    }
+  {
+    "id": 1,
+    "name": "Mohammed",
+    "email": "moh.kull200@gmail.com",
+    "password": "Mohkull123#"
+  },
+  {
+    "id": 2,
+    "name": "Ahmed",
+    "email": "ahm@gmail.com",
+    "password": "Mohkull123#"
+  }
 ]

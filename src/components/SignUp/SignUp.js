@@ -1,22 +1,51 @@
-import React, { useState, useEffect, useRef } from "react";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useState } from "react";
 
 import { FaFacebookF, FaGoogle, FaLinkedinIn } from "react-icons/fa";
 
-function Sign_up() {
-  const handleSubmit = () => {};
+function Sign_up({ users, newUser = (f) => f }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setpassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const emailCheck = /[\w\.]+@[\w\.]+\.[\w+]{2,4}/gi;
+    const passCheck = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/g;
+    const loggedIn = users.find((target) => target.email === email);
+    if (!loggedIn) {
+      if (!emailCheck.test(email)) {
+        setEmailError("Invalid Email");
+      } else {
+        setEmailError("");
+      }
+      if (!passCheck.test(password)) {
+        setPasswordError("Invalid pass");
+        return;
+      } else {
+        setPasswordError("");
+      }
+      newUser(name, email, password);
+      alert("signed up successfully");
+    } else {
+      setEmailError("email already exists ! please sign in ");
+      return;
+    }
+  };
 
   return (
-    <div class="form-container sign-up-container">
+    <div className="form-container sign-up-container">
       <form action="#" onSubmit={handleSubmit}>
         <h1>Create Account</h1>
-        <div class="social-container">
-          <a href="#" class="social">
+        <div className="social-container">
+          <a href="#" className="social">
             <FaFacebookF />
           </a>
-          <a href="#" class="social">
+          <a href="#" className="social">
             <FaGoogle />
           </a>
-          <a href="#" class="social">
+          <a href="#" className="social">
             <FaLinkedinIn />
           </a>
         </div>
@@ -25,27 +54,32 @@ function Sign_up() {
           type="text"
           name="name"
           placeholder="Name"
-          //   value={inputs.name}
-          //   onChange={handleChange}
-          // ref={refName}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          min={5}
+          max={15}
         />
         <input
-          type="email"
+          type="text"
           name="email"
           placeholder="Email"
-          //   value={inputs.email}
-          //   onChange={handleChange}
-          // ref={refEmail}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
         />
+        {emailError && <p className="error-badge">{emailError}</p>}
         <input
           type="password"
           name="password"
           placeholder="Password"
-          //   value={inputs.password}
-          //   onChange={handleChange}
-          // ref={refPass}
+          value={password}
+          onChange={(e) => setpassword(e.target.value)}
+          required
         />
-        <button onClick={handleSubmit}>Sign Up</button>
+        {passwordError && <p className="error-badge">{passwordError}</p>}
+
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   );
